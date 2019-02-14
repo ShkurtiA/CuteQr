@@ -4,12 +4,6 @@ import android.animation.ArgbEvaluator;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.StringRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -18,8 +12,15 @@ import android.widget.ImageButton;
 
 import com.chyrta.onboarder.utils.ColorsArrayBuilder;
 import com.chyrta.onboarder.views.CircleIndicatorView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 public abstract class OnboarderActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
@@ -43,14 +44,14 @@ public abstract class OnboarderActivity extends AppCompatActivity implements Vie
         setContentView(R.layout.activity_onboarder);
         setStatusBackgroundColor();
         hideActionBar();
-        circleIndicatorView = (CircleIndicatorView) findViewById(R.id.circle_indicator_view);
-        ibNext = (ImageButton) findViewById(R.id.ib_next);
-        btnSkip = (Button) findViewById(R.id.btn_skip);
-        btnFinish = (Button) findViewById(R.id.btn_finish);
-        buttonsLayout = (FrameLayout) findViewById(R.id.buttons_layout);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        circleIndicatorView = findViewById(R.id.circle_indicator_view);
+        ibNext = findViewById(R.id.ib_next);
+        btnSkip = findViewById(R.id.btn_skip);
+        btnFinish = findViewById(R.id.btn_finish);
+        buttonsLayout = findViewById(R.id.buttons_layout);
+        fab = findViewById(R.id.fab);
         divider = findViewById(R.id.divider);
-        vpOnboarderPager = (ViewPager) findViewById(R.id.vp_onboarder_pager);
+        vpOnboarderPager = findViewById(R.id.vp_onboarder_pager);
         vpOnboarderPager.addOnPageChangeListener(this);
         ibNext.setOnClickListener(this);
         btnSkip.setOnClickListener(this);

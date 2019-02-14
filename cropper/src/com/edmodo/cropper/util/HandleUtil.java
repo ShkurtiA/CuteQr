@@ -14,9 +14,10 @@
 package com.edmodo.cropper.util;
 
 import android.graphics.PointF;
-import android.support.annotation.NonNull;
 
 import com.edmodo.cropper.cropwindow.handle.Handle;
+
+import androidx.annotation.NonNull;
 
 /**
  * Utility class to perform basic operations with Handles.

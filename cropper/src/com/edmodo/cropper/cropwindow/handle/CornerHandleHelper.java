@@ -14,10 +14,11 @@
 package com.edmodo.cropper.cropwindow.handle;
 
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
 
 import com.edmodo.cropper.cropwindow.edge.Edge;
 import com.edmodo.cropper.cropwindow.edge.EdgePair;
+
+import androidx.annotation.NonNull;
 
 /**
  * HandleHelper class to handle corner Handles (i.e. top-left, top-right, bottom-left, and

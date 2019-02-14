@@ -15,9 +15,10 @@ package com.edmodo.cropper.util;
 
 import android.content.res.Resources;
 import android.graphics.Paint;
-import android.support.annotation.NonNull;
 
 import com.edmodo.cropper.R;
+
+import androidx.annotation.NonNull;
 
 /**
  * Utility class for handling all of the Paint used to draw the CropOverlayView.

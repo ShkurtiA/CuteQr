@@ -2,11 +2,6 @@ package com.chyrta.onboarder;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +10,11 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import pl.droidsonroids.gif.GifDrawable;
 
 public class OnboarderFragment extends Fragment {
@@ -31,11 +31,14 @@ public class OnboarderFragment extends Fragment {
 
     private String onboarderTitle;
     private String onboarderDescription;
-    @StringRes private int onboarderTitleResId;
-    @ColorRes private int onboarderTitleColor;
+    @StringRes
+    private int onboarderTitleResId;
+    @ColorRes
+    private int onboarderTitleColor;
     @StringRes private int onboarderDescriptionResId;
     @ColorRes private int onboarderDescriptionColor;
-    @DrawableRes private int onboarderImageResId;
+    @DrawableRes
+    private int onboarderImageResId;
     private float onboarderTitleTextSize;
     private float onboarderDescriptionTextSize;
 
@@ -85,9 +88,9 @@ public class OnboarderFragment extends Fragment {
         onboarderImageResId = bundle.getInt(ONBOARDER_PAGE_IMAGE_RES_ID, 0);
 
         onboarderView = inflater.inflate(R.layout.fragment_onboarder, container, false);
-        ivOnboarderImage = (ImageView) onboarderView.findViewById(R.id.iv_onboarder_image);
-        tvOnboarderTitle = (TextView) onboarderView.findViewById(R.id.tv_onboarder_title);
-        tvOnboarderDescription = (TextView) onboarderView.findViewById(R.id.tv_onboarder_description);
+        ivOnboarderImage = onboarderView.findViewById(R.id.iv_onboarder_image);
+        tvOnboarderTitle = onboarderView.findViewById(R.id.tv_onboarder_title);
+        tvOnboarderDescription = onboarderView.findViewById(R.id.tv_onboarder_description);
 
         if (onboarderTitle != null) {
             tvOnboarderTitle.setText(onboarderTitle);

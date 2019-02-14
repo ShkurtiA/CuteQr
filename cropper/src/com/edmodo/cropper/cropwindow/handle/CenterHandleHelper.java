@@ -14,9 +14,10 @@
 package com.edmodo.cropper.cropwindow.handle;
 
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
 
 import com.edmodo.cropper.cropwindow.edge.Edge;
+
+import androidx.annotation.NonNull;
 
 /**
  * HandleHelper class to handle the center handle.

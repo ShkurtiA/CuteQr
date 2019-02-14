@@ -14,9 +14,10 @@
 package com.edmodo.cropper.cropwindow.edge;
 
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
 
 import com.edmodo.cropper.util.AspectRatioUtil;
+
+import androidx.annotation.NonNull;
 
 /**
  * Enum representing an edge in the crop window.

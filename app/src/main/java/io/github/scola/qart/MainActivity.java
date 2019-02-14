@@ -16,13 +16,10 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -59,13 +56,16 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressDrawable;
 import io.github.scola.cuteqr.CuteR;
-import io.github.scola.gif.AnimatedGifEncoder;;
+import io.github.scola.gif.AnimatedGifEncoder;
 import pl.droidsonroids.gif.GifDrawable;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
     private final static int REQUEST_PICK_IMAGE = 1;
     private final static int REQUEST_SEND_QR_TEXT = 2;
@@ -78,7 +78,7 @@ public class MainActivity extends ActionBarActivity {
     public final static String PREF_GUIDE_VERSION = "version";
 
     private final static int MAX_INPUT_BITMAP_WIDTH = 720;
-    private final static int MAX_INPUT_BITMAP_HEIGHT= 1280;
+    private final static int MAX_INPUT_BITMAP_HEIGHT = 1280;
 
     private final static int COLOR_BRIGHTNESS_THRESHOLD = 0x7f;
 
@@ -143,13 +143,13 @@ public class MainActivity extends ActionBarActivity {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        pickPhoto = (CropImageView)findViewById(R.id.pick_img);
-        editTextView = (LinearLayout)findViewById(R.id.text_group);
-        mEditTextView = (EditText) findViewById(R.id.edit_text);
-        qrButton = (ImageView)findViewById(R.id.emotion_button);
-        setTextButton = (Button)findViewById(R.id.btn_send);
+        pickPhoto = findViewById(R.id.pick_img);
+        editTextView = findViewById(R.id.text_group);
+        mEditTextView = findViewById(R.id.edit_text);
+        qrButton = findViewById(R.id.emotion_button);
+        setTextButton = findViewById(R.id.btn_send);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressbar);
+        mProgressBar = findViewById(R.id.progressbar);
         mProgressBar.setIndeterminateDrawable(new SmoothProgressDrawable.Builder(this).interpolator(new AccelerateInterpolator()).build());
         mProgressBar.setVisibility(View.INVISIBLE);
 
@@ -162,13 +162,13 @@ public class MainActivity extends ActionBarActivity {
 
         setTextButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 String txt = mEditTextView.getText().toString().trim();
                 if (txt.isEmpty() == false) {
                     saveQrText(txt);
                     View view = MainActivity.this.getCurrentFocus();
                     if (view != null) {
-                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     }
                     editTextView.setVisibility(View.INVISIBLE);
@@ -178,10 +178,10 @@ public class MainActivity extends ActionBarActivity {
 
         qrButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 String[] items = getResources().getStringArray(R.array.read_scan_qr);
 
-                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle(R.string.scan_or_read);
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -204,7 +204,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        mBottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
+        mBottomNavigation = findViewById(R.id.bottom_navigation);
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.select_mode, android.R.drawable.ic_menu_slideshow, android.R.color.white);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.scan, android.R.drawable.ic_menu_camera, android.R.color.white);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.detect, android.R.drawable.ic_menu_zoom, android.R.color.white);
@@ -288,7 +288,7 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }
@@ -360,22 +360,22 @@ public class MainActivity extends ActionBarActivity {
             }
 
             new AlertDialog.Builder(this)
-                .setTitle(_(R.string.color_or_black))
-                .setMessage(_(R.string.colorful_msg))
-                .setPositiveButton(R.string.colorful, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                        chooseColor();
-                    }
-                })
-                .setNegativeButton(R.string.black_white, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                        startConvert(false, Color.BLACK);
-                    }
-                })
-                .create()
-                .show();
+                    .setTitle(_(R.string.color_or_black))
+                    .setMessage(_(R.string.colorful_msg))
+                    .setPositiveButton(R.string.colorful, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                            chooseColor();
+                        }
+                    })
+                    .setNegativeButton(R.string.black_white, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                            startConvert(false, Color.BLACK);
+                        }
+                    })
+                    .create()
+                    .show();
 
         }
 
@@ -442,8 +442,8 @@ public class MainActivity extends ActionBarActivity {
             shareQr.mkdirs();
         }
 
-        File newFile = mGif ? new File(shareQr, "Qart_"+ new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()).replaceAll("\\W+", "") + ".gif")
-                : new File(shareQr, "Qart_"+ new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()).replaceAll("\\W+", "") + ".png");
+        File newFile = mGif ? new File(shareQr, "Qart_" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()).replaceAll("\\W+", "") + ".gif")
+                : new File(shareQr, "Qart_" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()).replaceAll("\\W+", "") + ".png");
 
         if (mGif) {
             try {
@@ -493,7 +493,7 @@ public class MainActivity extends ActionBarActivity {
                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
                         if (selectedColor == Color.WHITE) {
                             Toast.makeText(MainActivity.this, R.string.select_white, Toast.LENGTH_LONG).show();
-                        } else if (Util.calculateColorGrayValue(selectedColor) > COLOR_BRIGHTNESS_THRESHOLD){
+                        } else if (Util.calculateColorGrayValue(selectedColor) > COLOR_BRIGHTNESS_THRESHOLD) {
                             Toast.makeText(MainActivity.this, R.string.select_light, Toast.LENGTH_LONG).show();
                         }
                         mColor = selectedColor;
@@ -537,7 +537,7 @@ public class MainActivity extends ActionBarActivity {
         }
         new AsyncTask<Void, Void, Void>() {
             @Override
-            protected Void doInBackground( Void... voids ) {
+            protected Void doInBackground(Void... voids) {
                 if (mGif) {
                     QRGifArray = CuteR.ProductGIF(qrText, gifArray, colorful, color);
                     shareQr = new File(getExternalCacheDir(), "Pictures");
@@ -582,6 +582,7 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return null;
             }
+
             @Override
             protected void onPostExecute(Void post) {
                 super.onPostExecute(post);
@@ -605,6 +606,7 @@ public class MainActivity extends ActionBarActivity {
                 }
                 mConverting = false;
             }
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -632,9 +634,10 @@ public class MainActivity extends ActionBarActivity {
         Log.d(TAG, "startDecode");
         new AsyncTask<Void, Void, Result>() {
             @Override
-            protected Result doInBackground(Void... voids ) {
+            protected Result doInBackground(Void... voids) {
                 return CuteR.decodeQRImage(bitmap);
             }
+
             @Override
             protected void onPostExecute(Result post) {
                 super.onPostExecute(post);
@@ -655,6 +658,7 @@ public class MainActivity extends ActionBarActivity {
                     Toast.makeText(MainActivity.this, R.string.cannot_detect_qr, Toast.LENGTH_LONG).show();
                 }
             }
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -699,7 +703,7 @@ public class MainActivity extends ActionBarActivity {
                             convertOrientation(mOriginBitmap, data.getData());
                             pickPhoto.setImageBitmap(mOriginBitmap);
                         }
-                    }catch (IOException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
 
@@ -731,7 +735,7 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case REQUEST_SEND_QR_TEXT:
                 if (resultCode == RESULT_OK) {
-                    if(data.hasExtra("import")) {
+                    if (data.hasExtra("import")) {
                         Log.d(TAG, "REQUEST_SEND_QR_TEXT");
                         final String text = data.getExtras().getString("import");
                         mEditTextView.postDelayed(new Runnable() {
@@ -771,8 +775,8 @@ public class MainActivity extends ActionBarActivity {
 
             default:
                 IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-                if(result != null) {
-                    if(result.getContents() == null) {
+                if (result != null) {
+                    if (result.getContents() == null) {
                         Toast.makeText(this, _(R.string.cancel_scan), Toast.LENGTH_LONG).show();
                     } else {
 //                        Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
@@ -866,11 +870,14 @@ public class MainActivity extends ActionBarActivity {
     private TextWatcher TextWatcherNewInstance() {
         return new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
@@ -888,12 +895,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-
     public String getRealPathFromURI(Context context, Uri contentUri) {
         Cursor cursor = null;
         try {
-            String[] proj = { MediaStore.Images.Media.DATA };
-            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            String[] proj = {MediaStore.Images.Media.DATA};
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
             return cursor.getString(column_index);
@@ -914,7 +920,7 @@ public class MainActivity extends ActionBarActivity {
 //        }
 
         String[] orientationColumn = {MediaStore.Images.Media.ORIENTATION};
-        Cursor cur = getContentResolver().query(imageUri,  orientationColumn, null, null, null);
+        Cursor cur = getContentResolver().query(imageUri, orientationColumn, null, null, null);
         int orientation = 0;
         if (cur != null && cur.moveToFirst()) {
             orientation = cur.getInt(cur.getColumnIndex(orientationColumn[0]));
@@ -1026,20 +1032,19 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public  boolean isStoragePermissionGranted(int request) {
+    public boolean isStoragePermissionGranted(int request) {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED) {
-                Log.v(TAG,"Permission is granted");
+                Log.v(TAG, "Permission is granted");
                 return true;
             } else {
-                Log.v(TAG,"Permission is revoked");
+                Log.v(TAG, "Permission is revoked");
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, request);
                 return false;
             }
-        }
-        else { //permission is automatically granted on sdk<23 upon installation
-            Log.v(TAG,"Permission is granted");
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG, "Permission is granted");
             return true;
         }
     }
@@ -1047,8 +1052,8 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
-            Log.v(TAG,"Permission: "+ permissions[0] + "was "+ grantResults[0]);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Log.v(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
             if (requestCode == REQUEST_SAVE_FILE) {
                 saveQRImage();
             } else {

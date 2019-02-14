@@ -13,10 +13,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.util.Patterns;
@@ -35,6 +31,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import io.github.scola.cuteqr.CuteR;
 
 public class QRCodeResultActivity extends AppCompatActivity {
@@ -139,7 +139,7 @@ public class QRCodeResultActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(i, getResources().getString(R.string.share_channel)));
                 break;
             case 3:
-                Uri uri = Uri.parse(qrText);;
+                Uri uri = Uri.parse(qrText);
                 String url = qrText.toLowerCase();
                 if (url.contains("http://") || url.contains("https://")) {
                     Matcher m = Patterns.WEB_URL.matcher(url);

@@ -1,14 +1,14 @@
 /*
- * Copyright 2013, Edmodo, Inc. 
+ * Copyright 2013, Edmodo, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with the License.
  * You may obtain a copy of the License in the LICENSE file, or at:
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" 
- * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language 
- * governing permissions and limitations under the License. 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  */
 
 package com.edmodo.cropper;
@@ -22,10 +22,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ImageView;
@@ -35,6 +32,9 @@ import com.edmodo.cropper.cropwindow.handle.Handle;
 import com.edmodo.cropper.util.AspectRatioUtil;
 import com.edmodo.cropper.util.HandleUtil;
 import com.edmodo.cropper.util.PaintUtil;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Custom view that provides cropping capabilities to an image.
@@ -224,7 +224,6 @@ public class CropImageView extends ImageView {
      * allows it to be changed.
      *
      * @param fixAspectRatio Boolean that signals whether the aspect ratio should be maintained.
-     *
      * @see {@link #setAspectRatio(int, int)}
      */
     public void setFixedAspectRatio(boolean fixAspectRatio) {
@@ -238,7 +237,6 @@ public class CropImageView extends ImageView {
      *
      * @param aspectRatioX new X value of the aspect ratio; must be greater than 0
      * @param aspectRatioY new Y value of the aspect ratio; must be greater than 0
-     *
      * @see {@link #setFixedAspectRatio(boolean)}
      */
     public void setAspectRatio(int aspectRatioX, int aspectRatioY) {
@@ -478,10 +476,10 @@ public class CropImageView extends ImageView {
     private void drawBorder(@NonNull Canvas canvas) {
 
         canvas.drawRect(Edge.LEFT.getCoordinate(),
-                        Edge.TOP.getCoordinate(),
-                        Edge.RIGHT.getCoordinate(),
-                        Edge.BOTTOM.getCoordinate(),
-                        mBorderPaint);
+                Edge.TOP.getCoordinate(),
+                Edge.RIGHT.getCoordinate(),
+                Edge.BOTTOM.getCoordinate(),
+                mBorderPaint);
     }
 
     private void drawCorners(@NonNull Canvas canvas) {
