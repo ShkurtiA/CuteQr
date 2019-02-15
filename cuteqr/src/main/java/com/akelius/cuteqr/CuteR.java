@@ -1,4 +1,4 @@
-package io.github.scola.cuteqr;
+package com.akelius.cuteqr;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -17,11 +17,11 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.RGBLuminanceSource;
 import com.google.zxing.Result;
 import com.google.zxing.WriterException;
-import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.qrcode.encoder.Encoder;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.ByteMatrix;
+import com.google.zxing.qrcode.encoder.Encoder;
 import com.google.zxing.qrcode.encoder.QRCode;
 
 import java.util.EnumMap;
@@ -49,7 +49,7 @@ public class CuteR {
 
     private static final int MAX_LOGO_SIZE = 1080;
 
-    public static Bitmap Product(String txt, Bitmap input, boolean colorful, int color){
+    public static Bitmap Product(String txt, Bitmap input, boolean colorful, int color) {
         Log.d(TAG, "Product start input input.getWidth(): " + input.getWidth() + " input.getHeight(): " + input.getHeight());
         Bitmap QRImage = null;
         try {
@@ -63,7 +63,7 @@ public class CuteR {
         }
 
         int inputSize = Math.max(input.getWidth(), input.getHeight());
-        int scale = (int)Math.ceil(1.0 * inputSize / QRImage.getWidth());
+        int scale = (int) Math.ceil(1.0 * inputSize / QRImage.getWidth());
         if (scale % 3 != 0) {
             scale += (3 - scale % 3);
         }
@@ -74,10 +74,10 @@ public class CuteR {
         int imageSize = 0;
         Bitmap resizedImage = null;
         if (input.getWidth() < input.getHeight()) {
-            resizedImage = Bitmap.createScaledBitmap(input, scaledQRImage.getWidth() - scale  * 4 * 2, (int)((scaledQRImage.getHeight() - scale  * 4 * 2) * (1.0 * input.getHeight() / input.getWidth())), false);
+            resizedImage = Bitmap.createScaledBitmap(input, scaledQRImage.getWidth() - scale * 4 * 2, (int) ((scaledQRImage.getHeight() - scale * 4 * 2) * (1.0 * input.getHeight() / input.getWidth())), false);
             imageSize = resizedImage.getWidth();
         } else {
-            resizedImage = Bitmap.createScaledBitmap(input, (int)((scaledQRImage.getWidth() - scale  * 4 * 2) * (1.0 * input.getWidth() / input.getHeight())), scaledQRImage.getHeight() - scale  * 4 * 2, false);
+            resizedImage = Bitmap.createScaledBitmap(input, (int) ((scaledQRImage.getWidth() - scale * 4 * 2) * (1.0 * input.getWidth() / input.getHeight())), scaledQRImage.getHeight() - scale * 4 * 2, false);
             imageSize = resizedImage.getHeight();
         }
 //
@@ -86,7 +86,7 @@ public class CuteR {
 //            return null;
 //        }
 
-        int[][] pattern = new int[scaledQRImage.getWidth() - scale  * 4 * 2][scaledQRImage.getWidth() - scale  * 4 * 2];
+        int[][] pattern = new int[scaledQRImage.getWidth() - scale * 4 * 2][scaledQRImage.getWidth() - scale * 4 * 2];
 
         for (int i = 0; i < patternCenters.length; i++) {
             for (int j = 0; j < patternCenters.length; j++) {
@@ -116,10 +116,10 @@ public class CuteR {
                 if ((i * 3 / scale) % 3 == 1 && (j * 3 / scale) % 3 == 1) {
                     continue;
                 }
-                if (i < scale  * 4 * 2 && (j < scale  * 4 * 2 || j > imageSize -(scale  * 4 * 2 + 1))) {
+                if (i < scale * 4 * 2 && (j < scale * 4 * 2 || j > imageSize - (scale * 4 * 2 + 1))) {
                     continue;
                 }
-                if (i > imageSize - (scale  * 4 * 2 + 1) && j < scale  * 4 * 2) {
+                if (i > imageSize - (scale * 4 * 2 + 1) && j < scale * 4 * 2) {
                     continue;
                 }
 
@@ -127,7 +127,7 @@ public class CuteR {
                     continue;
                 }
 
-                scaledQRImage.setPixel(i + scale  * 4, j + scale  * 4, blackWhite.getPixel(i, j));
+                scaledQRImage.setPixel(i + scale * 4, j + scale * 4, blackWhite.getPixel(i, j));
             }
         }
         Log.d(TAG, "Product end input scaledQRImage.getWidth(): " + scaledQRImage.getWidth() + " scaledQRImage.getHeight(): " + scaledQRImage.getHeight());
@@ -141,7 +141,7 @@ public class CuteR {
         return blackWhite;
     }
 
-    public static Bitmap ProductEmbed(String txt, Bitmap input, boolean colorful, int color, int x, int y, Bitmap originBitmap){
+    public static Bitmap ProductEmbed(String txt, Bitmap input, boolean colorful, int color, int x, int y, Bitmap originBitmap) {
         int originalSize = input.getWidth();
         Bitmap qrBitmap = Product(txt, input, colorful, color);
         double newScale = 1.0 * originalSize * scaleQR / (qrBitmap.getWidth() - 2 * 4 * scaleQR);
@@ -201,14 +201,14 @@ public class CuteR {
         int scale = SCALE_NORMAL_QR;
 
         if (finalSize > fullSize) {
-            scale = SCALE_NORMAL_QR * finalSize/fullSize;
-            qrImage = Bitmap.createScaledBitmap(qrImage, qrImage.getWidth()*finalSize/fullSize, qrImage.getHeight()*finalSize/fullSize, false);
+            scale = SCALE_NORMAL_QR * finalSize / fullSize;
+            qrImage = Bitmap.createScaledBitmap(qrImage, qrImage.getWidth() * finalSize / fullSize, qrImage.getHeight() * finalSize / fullSize, false);
             fullSize = finalSize;
         }
         int background = (int) (fullSize * LOGO_BACKGROUND / FULL_LOGO_QR);
         int logoSize = (int) (fullSize * LOGO_SIZE / FULL_LOGO_QR);
 
-        Bitmap white =  Bitmap.createBitmap(background, background, Bitmap.Config.ARGB_8888);
+        Bitmap white = Bitmap.createBitmap(background, background, Bitmap.Config.ARGB_8888);
         int boundary = (background - logoSize) / 2;
 
         Canvas canvas = new Canvas(white);
@@ -228,7 +228,7 @@ public class CuteR {
         white = fillBoundary(white, boundary, Color.TRANSPARENT);
 
         Canvas canvasQR = new Canvas(qrImage);
-        canvasQR.drawBitmap(white, scale * 4 + (fullSize - background)/2, scale * 4 + (fullSize - background)/2, null);
+        canvasQR.drawBitmap(white, scale * 4 + (fullSize - background) / 2, scale * 4 + (fullSize - background) / 2, null);
 //        canvasQR.drawBitmap(scaleLogo, scale * 4 + (fullSize - logoSize)/2, scale * 4 + (fullSize - logoSize)/2, null);
         return qrImage;
     }
@@ -258,7 +258,7 @@ public class CuteR {
                 }
             }
         }
-        return  white;
+        return white;
     }
 
     public static Bitmap[] ProductGIF(String txt, Bitmap[] input, boolean colorful, int color) {
@@ -266,7 +266,7 @@ public class CuteR {
         int size = input[0].getWidth();
         int i = 0;
         Bitmap[] output = new Bitmap[input.length];
-        for (Bitmap inputBitmap : input){
+        for (Bitmap inputBitmap : input) {
             if (size > MAX_INPUT_GIF_SIZE) {
                 inputBitmap = Bitmap.createScaledBitmap(inputBitmap, MAX_INPUT_GIF_SIZE, MAX_INPUT_GIF_SIZE, false);
             }
@@ -307,14 +307,12 @@ public class CuteR {
     }
 
     public static Bitmap replaceColor(Bitmap qrBitmap, int color) {
-        int [] allpixels = new int [qrBitmap.getHeight()*qrBitmap.getWidth()];
+        int[] allpixels = new int[qrBitmap.getHeight() * qrBitmap.getWidth()];
 
         qrBitmap.getPixels(allpixels, 0, qrBitmap.getWidth(), 0, 0, qrBitmap.getWidth(), qrBitmap.getHeight());
 
-        for(int i = 0; i < allpixels.length; i++)
-        {
-            if(allpixels[i] == Color.BLACK)
-            {
+        for (int i = 0; i < allpixels.length; i++) {
+            if (allpixels[i] == Color.BLACK) {
                 allpixels[i] = color;
             }
         }
@@ -330,7 +328,7 @@ public class CuteR {
         int[] pixels = new int[width * height]; //通过位图的大小创建像素点数组
 
         qrBitmap.getPixels(pixels, 0, width, 0, 0, width, height);
-        int[] gray=new int[height*width];
+        int[] gray = new int[height * width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (pixels[width * i + j] != Color.WHITE) {
@@ -350,7 +348,7 @@ public class CuteR {
         if (contentsToEncode == null) {
             return null;
         }
-        Map<EncodeHintType,Object> hints = null;
+        Map<EncodeHintType, Object> hints = null;
         String encoding = guessAppropriateEncoding(contentsToEncode);
         if (encoding != null) {
             hints = new EnumMap<>(EncodeHintType.class);
@@ -381,6 +379,7 @@ public class CuteR {
         bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
         return bitmap;
     }
+
     private static String guessAppropriateEncoding(CharSequence contents) {
         // Very crude at the moment
         for (int i = 0; i < contents.length(); i++) {
@@ -413,7 +412,7 @@ public class CuteR {
         int topPadding = (outputHeight - (inputHeight * multiple)) / 2;
         BitMatrix output = new BitMatrix(outputWidth, outputHeight);
         for (int inputY = 0, outputY = topPadding; inputY < inputHeight; inputY++, outputY += multiple) {
-        // Write the contents of this row of the barcode
+            // Write the contents of this row of the barcode
             for (int inputX = 0, outputX = leftPadding; inputX < inputWidth; inputX++, outputX += multiple) {
                 if (input.get(inputX, inputY) == 1) {
                     output.setRegion(outputX, outputY, multiple, multiple);
@@ -423,14 +422,14 @@ public class CuteR {
         return output;
     }
 
-    public static Bitmap ConvertToBlackAndWhite(Bitmap sampleBitmap){
-        ColorMatrix bwMatrix =new ColorMatrix();
+    public static Bitmap ConvertToBlackAndWhite(Bitmap sampleBitmap) {
+        ColorMatrix bwMatrix = new ColorMatrix();
         bwMatrix.setSaturation(0);
-        final ColorMatrixColorFilter colorFilter= new ColorMatrixColorFilter(bwMatrix);
+        final ColorMatrixColorFilter colorFilter = new ColorMatrixColorFilter(bwMatrix);
         Bitmap rBitmap = sampleBitmap.copy(Bitmap.Config.ARGB_8888, true);
-        Paint paint=new Paint();
+        Paint paint = new Paint();
         paint.setColorFilter(colorFilter);
-        Canvas myCanvas =new Canvas(rBitmap);
+        Canvas myCanvas = new Canvas(rBitmap);
         myCanvas.drawBitmap(rBitmap, 0, 0, paint);
         return rBitmap;
     }
@@ -439,7 +438,7 @@ public class CuteR {
         int size = Math.min(qrBitmap.getWidth(), qrBitmap.getHeight());
         int boundary = size / 5;
 
-        Bitmap white =  Bitmap.createBitmap(qrBitmap.getWidth() + boundary*2, qrBitmap.getWidth() + boundary*2, Bitmap.Config.ARGB_8888);
+        Bitmap white = Bitmap.createBitmap(qrBitmap.getWidth() + boundary * 2, qrBitmap.getWidth() + boundary * 2, Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(white);
         canvas.drawColor(Color.WHITE);
@@ -461,26 +460,35 @@ public class CuteR {
         double contrast = Math.pow((100 + value) / 100, 2);
 
         // scan through all pixels
-        for(int x = 0; x < width; ++x) {
-            for(int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            for (int y = 0; y < height; ++y) {
                 // get pixel color
                 pixel = src.getPixel(x, y);
                 A = Color.alpha(pixel);
                 // apply filter contrast for every channel R, G, B
                 R = Color.red(pixel);
-                R = (int)(((((R / 255.0) - 0.5) * contrast) + 0.5) * 255.0) + brightness;
-                if(R < 0) { R = 0; }
-                else if(R > 255) { R = 255; }
+                R = (int) (((((R / 255.0) - 0.5) * contrast) + 0.5) * 255.0) + brightness;
+                if (R < 0) {
+                    R = 0;
+                } else if (R > 255) {
+                    R = 255;
+                }
 
                 G = Color.green(pixel);
-                G = (int)(((((G / 255.0) - 0.5) * contrast) + 0.5) * 255.0) + brightness;
-                if(G < 0) { G = 0; }
-                else if(G > 255) { G = 255; }
+                G = (int) (((((G / 255.0) - 0.5) * contrast) + 0.5) * 255.0) + brightness;
+                if (G < 0) {
+                    G = 0;
+                } else if (G > 255) {
+                    G = 255;
+                }
 
                 B = Color.blue(pixel);
-                B = (int)(((((B / 255.0) - 0.5) * contrast) + 0.5) * 255.0) + brightness;
-                if(B < 0) { B = 0; }
-                else if(B > 255) { B = 255; }
+                B = (int) (((((B / 255.0) - 0.5) * contrast) + 0.5) * 255.0) + brightness;
+                if (B < 0) {
+                    B = 0;
+                } else if (B > 255) {
+                    B = 255;
+                }
 
                 // set new pixel color to output bitmap
                 bmOut.setPixel(x, y, Color.argb(A, R, G, B));
@@ -502,42 +510,42 @@ public class CuteR {
 
 
         img.getPixels(pixels, 0, width, 0, 0, width, height);
-        int[] gray=new int[height*width];
+        int[] gray = new int[height * width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 int grey = pixels[width * i + j];
-                int red = ((grey  & 0x00FF0000 ) >> 16);
-                gray[width*i+j]=red;
+                int red = ((grey & 0x00FF0000) >> 16);
+                gray[width * i + j] = red;
             }
         }
 
 
-        int e=0;
+        int e = 0;
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                int g=gray[width*i+j];
-                if (g>=128) {
-                    pixels[width*i+j]=0xffffffff;
-                    e=g-255;
+                int g = gray[width * i + j];
+                if (g >= 128) {
+                    pixels[width * i + j] = 0xffffffff;
+                    e = g - 255;
 
 
-                }else {
-                    pixels[width*i+j]=0xff000000;
-                    e=g-0;
+                } else {
+                    pixels[width * i + j] = 0xff000000;
+                    e = g - 0;
                 }
-                if (j<width-1&&i<height-1) {
+                if (j < width - 1 && i < height - 1) {
 //右边像素处理
-                    gray[width*i+j+1]+=3*e/8;
+                    gray[width * i + j + 1] += 3 * e / 8;
 //下
-                    gray[width*(i+1)+j]+=3*e/8;
+                    gray[width * (i + 1) + j] += 3 * e / 8;
 //右下
-                    gray[width*(i+1)+j+1]+=e/4;
-                }else if (j==width-1&&i<height-1) {//靠右或靠下边的像素的情况
+                    gray[width * (i + 1) + j + 1] += e / 4;
+                } else if (j == width - 1 && i < height - 1) {//靠右或靠下边的像素的情况
 //下方像素处理
-                    gray[width*(i+1)+j]+=3*e/8;
-                }else if (j<width-1&&i==height-1) {
+                    gray[width * (i + 1) + j] += 3 * e / 8;
+                } else if (j < width - 1 && i == height - 1) {
 //右边像素处理
-                    gray[width*(i)+j+1]+=e/4;
+                    gray[width * (i) + j + 1] += e / 4;
                 }
             }
 
@@ -545,7 +553,7 @@ public class CuteR {
         }
 
 
-        Bitmap mBitmap=Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        Bitmap mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
         mBitmap.setPixels(pixels, 0, width, 0, 0, width, height);
         return mBitmap;
     }
@@ -558,11 +566,11 @@ public class CuteR {
         int[] pixels = new int[width * height]; //通过位图的大小创建像素点数组
 
         img.getPixels(pixels, 0, width, 0, 0, width, height);
-        int[] gray=new int[height*width];
+        int[] gray = new int[height * width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 int grey = pixels[width * i + j];
-                gray[width*i+j] = grey & 0xFF;
+                gray[width * i + j] = grey & 0xFF;
             }
         }
 
@@ -591,7 +599,7 @@ public class CuteR {
                 }
             }
         }
-        Bitmap mBitmap=Bitmap.createBitmap(width, height, img.getConfig());
+        Bitmap mBitmap = Bitmap.createBitmap(width, height, img.getConfig());
         mBitmap.setPixels(pixels, 0, width, 0, 0, width, height);
         return mBitmap;
     }

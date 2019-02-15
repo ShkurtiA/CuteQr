@@ -39,6 +39,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.akelius.cuteqr.CuteR;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.edmodo.cropper.CropImageView;
@@ -60,7 +61,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressDrawable;
-import io.github.scola.cuteqr.CuteR;
 import io.github.scola.gif.AnimatedGifEncoder;
 import pl.droidsonroids.gif.GifDrawable;
 
@@ -697,7 +697,7 @@ public class MainActivity extends AppCompatActivity {
                             pickPhoto.setImageDrawable(mGifDrawable);
                             mOriginBitmap = mGifDrawable.seekToFrameAndGet(0);
 
-                        } else {
+                        } else {//*//
                             mGif = false;
                             mOriginBitmap = getBitmapFromUri(data.getData());
                             convertOrientation(mOriginBitmap, data.getData());

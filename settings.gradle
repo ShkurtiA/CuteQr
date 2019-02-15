@@ -1,1 +1,1 @@
-include ':app', ':library', ':cropper', ':onboarder'
+include ':app', ':cropper', ':onboarder', ':cuteqr'

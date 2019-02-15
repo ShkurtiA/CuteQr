@@ -23,6 +23,9 @@
         <activity
             android:name=".IntroActivity"
             android:noHistory="true"></activity>
+
+        <activity android:name="io.github.scola.TestActivity" />
+
         <activity
             android:name=".QRCodeResultActivity"
             android:label="@string/qr_result"
